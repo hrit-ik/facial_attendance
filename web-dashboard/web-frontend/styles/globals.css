@@ -1,0 +1,45 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu-link{
+  @apply px-5 py-3 hover:bg-slate-200 text-lg rounded-md;
+}
+
+.active-menu-link{
+  @apply px-5 py-3 bg-gray-600 text-white  text-lg rounded-md;
+}
+
+.card{
+  @apply px-5 py-3 bg-white rounded-lg shadow-md hover:shadow-xl;
+}
+
+.input-group{
+  @apply px-5 py-3 bg-white rounded-lg shadow-md hover:shadow-xl;
+}
+
+.btn-primary{
+  @apply px-4 py-2 bg-blue-300 rounded-lg shadow-md hover:shadow-xl;
+}
+
+.card2{
+  @apply h-36 col-span-1 shadow-lg hover:scale-110 transition duration-150 hover:cursor-pointer rounded-md;
+}
