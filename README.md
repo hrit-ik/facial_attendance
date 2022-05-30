@@ -12,11 +12,11 @@ You can use [Robo3T](https://robomongo.org/) to import the demo db collection fr
 Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/web-backend/app.js and web-dashboard/web-backend/python-server/main.py. You can change the connection on these code-blocks to connect to mongo Atlas or any other local collection.
 
 **Intalling Dependencies**
-1) Inside folders [app/app-frontend](./app/app-frontend), web-dashboard/web-backend, and web-dashboard/web-frontend install node_modules modules.
+1) Inside folders [app/app-frontend](./app/app-frontend), [web-dashboard/web-backend](./web-dashboard/web-backend), and [web-dashboard/web-frontend](./web-dashboard/web-frontend) install node_modules modules.
 
     `npm install`
 
-2) Inside folders app/app-backend, web-dashboard/web-backend/python-server: 
+2) Inside folders [app/app-backend](./app/app-backend), [web-dashboard/web-backend/python-server](./web-dashboard/web-backend/python-server): 
 	i) Make virtual envs
 	
     `python3 -m venv env`
