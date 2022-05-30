@@ -1,13 +1,27 @@
 import { getClassesUnderUser, getAttendanceWithStudentAndClass, getAttendanceWithClassAndDate } from '../queries/queries';
 import { gql, useQuery } from '@apollo/client';
+import client from '../apollo-client'
+import { useEffect } from 'react';
 
-export const ShowWithStudentsAndClass = ({classId, studentId}) => {
+export const ShowWithStudentsAndClass = ({classId, studentId, loadData1}) => {
     const { loading, error, data } = useQuery(getAttendanceWithStudentAndClass, {
         variables: {
             studentId,
             classId
         }
     });
+
+    async function refetchQueries() {
+        await client.refetchQueries({
+            include: ["getAttendanceWithStudentAndClass"],
+        });
+    }
+    useEffect(()=>{
+        if(loadData1){
+            refetchQueries()
+        }
+    }, [loadData1]) 
+
     if (loading) return <p>Loading...</p>;
     const attendance = data.getAttendanceWithStudentAndClass;
     if(attendance.length === 0) return <p>No attendance data</p>;
@@ -26,7 +40,7 @@ export const ShowWithStudentsAndClass = ({classId, studentId}) => {
     )
 }
 
-export const ShowWithClassAndDate = ({classId, date}) => {
+export const ShowWithClassAndDate = ({classId, date, loadData2}) => {
     date = date.split('-')[2] + '-' + date.split('-')[1] + '-' + date.split('-')[0];
     const { loading, error, data } = useQuery(getAttendanceWithClassAndDate, {
         variables: {
@@ -34,6 +48,18 @@ export const ShowWithClassAndDate = ({classId, date}) => {
             date
         }
     });
+
+    async function refetchQueries() {
+        await client.refetchQueries({
+            include: ["getAttendanceWithClassAndDate"],
+        });
+    }
+    useEffect(()=>{
+        if(loadData2){
+            refetchQueries()
+        }
+    }, [loadData2]) 
+
     if (loading) return <p>Loading...</p>;
     const attendance = data.getAttendanceWithClassAndDate[0]
     if(!attendance) return <p>No attendance data</p>;
