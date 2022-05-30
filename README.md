@@ -39,7 +39,7 @@ Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/w
 
     `cd app/app-backend`
     `python3 main.py`
-3) You can directly start the macOS Build or can start the react app from app/app-frontend.
+3) You can directly start the macOS [Build](https://github.com/hrit-ik/facial_attendance/tree/main/app/app-frontend/macos_build/app-frontend.app/Contents/MacOS) or can start the react app from app/app-frontend.
 
     `npm start`
     
