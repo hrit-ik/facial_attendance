@@ -50,8 +50,8 @@ def setFaces(_class):
     ids = [student['_id'] for student in students]
 
     setAttendance(current_class['_id'])
-    # faceRec.set_timing(current_class['timing'])
-    faceRec.set_timing(["15:00", "23:00"])
+    faceRec.set_timing(current_class['timing'])
+#     faceRec.set_timing(["15:00", "23:00"])
     faceRec.encode(dict(zip(ids, names)), face_encodings, _class['_id'])
 
 @app.route('/login', methods=['POST'])
