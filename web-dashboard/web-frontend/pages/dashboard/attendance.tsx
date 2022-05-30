@@ -8,6 +8,8 @@ import client from "../../apollo-client";
 import { getClassesUnderUser, getAttendanceWithStudentAndClass, getAttendanceWithClassAndDate } from '../../queries/queries';
 import type { NextPage } from 'next'
 import {ShowWithStudentsAndClass, ShowWithClassAndDate} from '../../components/showAttendanceData'
+import {useQuery} from '@apollo/client'
+
 
 interface Props {
   classes: any,
@@ -43,7 +45,6 @@ export async function getServerSideProps(ctx:any) {
 
 const Attendance:NextPage<Props> = ({classes}) => {
   const [classOptions, setClassOptions]:any = useState([]);
-
   // Seting options for class dropdowns
   useEffect(() => {
     const _classOptions:any = []
@@ -161,8 +162,8 @@ const Attendance:NextPage<Props> = ({classes}) => {
           </form>
         </div>
         </div>
-        {loadData1 && <ShowWithStudentsAndClass classId={selectedClass1.value} studentId={selectedStudent.value}/>}
-        {loadData2 && <ShowWithClassAndDate classId={selectedClass2.value} date={date}/>}
+        {loadData1 && <ShowWithStudentsAndClass classId={selectedClass1.value} studentId={selectedStudent.value} loadData1={loadData1}/>}
+        {loadData2 && <ShowWithClassAndDate classId={selectedClass2.value} date={date} loadData2={loadData2}/>}
       </div>
     </div>
   );
