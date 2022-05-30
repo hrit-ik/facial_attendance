@@ -17,6 +17,7 @@ Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/w
     `npm install`
 
 2) Inside folders [app/app-backend](./app/app-backend), [web-dashboard/web-backend/python-server](./web-dashboard/web-backend/python-server): 
+	
 	i) Make virtual envs
 	
     `python3 -m venv env`
