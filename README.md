@@ -95,7 +95,7 @@ To build the app on your machine follow the instuctions:
 7) We can see attendance data with student of a class, or of a class on a specific date. 
 
 **Bugs**
-1) As the classes and attendance are server side rendered we have to refresh the dev server to see the result after adding classes or students.
+1) As the classes and students are server side rendered we have to refresh the dev server to see the result after adding classes or students.
 
 ## Images
 
