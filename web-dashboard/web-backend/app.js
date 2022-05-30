@@ -14,14 +14,14 @@ let {PythonShell} = require('python-shell')
 const bcrypt = require('bcryptjs');
 
 // // Spawning Python server (at port 6000) to get face_encogings from images
-// let options = {
-//     pythonPath: './python_server/env/bin/python3',
-//     scriptPath: './python_server/'
-// }
-// PythonShell.run('main.py', options, function (err) {
-//     if (err) throw err;
-//     console.log('Running Python server');
-// })
+let options = {
+    pythonPath: './python_server/env/bin/python3',
+    scriptPath: './python_server/'
+}
+PythonShell.run('main.py', options, function (err) {
+    if (err) throw err;
+    console.log('Running Python server');
+})
 
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/graphql-demo';
