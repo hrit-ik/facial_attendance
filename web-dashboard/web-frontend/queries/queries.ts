@@ -29,6 +29,27 @@ query {
     }
 }`
 
+export const getClassesUnderUserWithId = gql`
+query getStudentsUnderUser($id: ID!) {
+    user(id: $id){
+        username
+        classes{
+            id
+            name
+            timing
+            userId
+            passcode
+            classCode
+            students{
+                id
+                name
+                profileUrl
+                rollNo
+            }
+        }
+    }
+}`
+
 
 export const getStudentsUnderUser = gql`
 query {
