@@ -7,7 +7,7 @@ import { TrashIcon } from '@heroicons/react/solid';
 import { useState, useEffect, useCallback } from 'react';
 import client from "../../apollo-client";
 import cookies from 'next-cookies'
-import {getClassesUnderUser, getStudentsUnderUser} from '../../queries/queries'
+import {getClassesUnderUser, getStudentsUnderUser, getClassesUnderUserWithId} from '../../queries/queries'
 // import { DeleteStudent } from '../../queries/mutations';
 import type { NextPage } from 'next';
 import Select from 'react-select';
@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 
 
 interface Props {
-  classes: any,
+  _classes: any,
   userId: String,
 }
 
@@ -42,22 +42,28 @@ export async function getServerSideProps(ctx:any) {
     })
     return {
         props: {
-            classes: data.currentUser.classes,
+            _classes: data.currentUser.classes,
             userId: userId
         }
     }
 }
 
-const Students: NextPage<Props> =  ({classes, userId}) => {
+const Students: NextPage<Props> =  ({_classes, userId}) => {
   // console.log(classes)
+  const [classes, setClasses] = useState(_classes)
   const [studentName, setStudentName] = useState('');
   const [rollNo, setRollNo] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
   const [selectedOption, setSelectedOption]:any = useState('');
   const [selectedOption2, setSelectedOption2]:any = useState('');
   // const [image, setImage ] = useState("");
+  const {data, loading, error} = useQuery(getClassesUnderUserWithId, {
+    variables: {
+      id: userId
+    }
+  })
   const [isUploading, setIsUploading] = useState(false);
-  const [deleteStudent, { data, loading, error }] = useMutation(DeleteStudent);
+  const [deleteStudent, { }] = useMutation(DeleteStudent);
   const router = useRouter();
 
   // adding classes to the dropdown
@@ -69,8 +75,26 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
     })
   })
 
+  async function refetch(){
+    await client.refetchQueries({
+      include: [getClassesUnderUserWithId],
+    });
+  }
+
+  useEffect(() => {
+    if(data){
+      const _data = data.user.classes
+      setClasses(_data)
+      setStudentName('')
+      setRollNo('')
+      setPhotoUrl('')
+      setSelectedOption('')
+    }
+  }, [data])
+
   // Function to add student
   const handleSubmit = async(e:any) => {
+    e.preventDefault();
     if(!selectedOption || !studentName || !rollNo || !photoUrl){
       alert("Please fill all the fields")
       return
@@ -88,7 +112,8 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
       )
       if(res.status === 200){
         alert("Student added successfully")
-        router.replace(router.asPath)
+        refetch()
+        // router.replace(router.asPath)
       }
       else{
         alert('error')
@@ -102,7 +127,8 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
   }
 
   // Function to handle deletion of student
-  const handleDelete = async(id:any) => {
+  const handleDelete = async(e:any, id:any) => {
+    e.preventDefault();
     var delCnfrm = window.confirm("Are you sure you want to delete this student?")
     if(delCnfrm){
       await deleteStudent({
@@ -111,7 +137,8 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
         }
       })
       alert('Student Deleted')
-      router.replace(router.asPath)
+      refetch()
+      // router.replace(router.asPath)
     }
     else{
       return
@@ -123,6 +150,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
     <div className="grid grid-cols-9 h-screen">
       <SideMenu />
       <div className=" col-span-5 px-10 py-3 overflow-scroll scrollbar-hide flex flex-col items-center">
+        {/* Class Options */}
         <Select
             defaultValue={selectedOption2}
             onChange={setSelectedOption2}
@@ -148,7 +176,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
                 <div className='text-md font-semibold capitalize'>Name: <span className='text-md font-normal'>{student.name}</span></div>
                 <div className='text-md font-semibold capitalize'>Roll No <span className='text-md font-normal'>{student.rollNo}</span></div>
                 <div>
-                  <TrashIcon className='text-gray-200 opacity-75 absolute right-1 top-1 hover:scale-150 cursor-pointer w-5' onClick={() => {handleDelete(student.id)}} />
+                  <TrashIcon className='text-gray-200 opacity-75 absolute right-1 top-1 hover:scale-150 cursor-pointer w-5' onClick={(e) => {handleDelete(e, student.id)}} />
                 </div>
               </div>
             </div>
@@ -164,7 +192,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
           <form action="">
             <div>
               <label htmlFor="studentName">Student Name</label>
-              <input type="text" id="studentName" name="studentName" className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
+              <input type="text" id="studentName" name="studentName" value={studentName} className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
                 onChange={(e)=>{
                   setStudentName(e.target.value)
                 }}
@@ -172,7 +200,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
             </div>
             <div className='mt-5'>
               <label htmlFor="rollNo">Roll Number</label>
-              <input type="text" id="rollNo" name="rollNo" className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
+              <input type="text" id="rollNo" name="rollNo" value={rollNo} className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
                 onChange={(e)=>{
                   setRollNo(e.target.value)
                 }}
@@ -180,7 +208,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
             </div>
             <div className='mt-5'>
               <label htmlFor="photoUrl">Profile Url <span className='text-sm'>[upload on imagebb]</span></label>
-              <input type="text" id="photoUrl" name="photoUrl" className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
+              <input type="text" id="photoUrl" name="photoUrl" value={photoUrl} className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2'
                 onChange={(e)=>{
                   setPhotoUrl(e.target.value)
                 }}
@@ -198,6 +226,7 @@ const Students: NextPage<Props> =  ({classes, userId}) => {
                   placeholder="class"
                   className='w-full mt-5'
                   instanceId='1'
+                  value={selectedOption}
               />
             </div>
             <div className='mt-5'>
