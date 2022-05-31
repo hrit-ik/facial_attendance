@@ -2,7 +2,7 @@ import * as React from 'react';
 import SideMenu from "../../components/sidemenu";
 import client from "../../apollo-client";
 import cookies from 'next-cookies'
-import {getClassesUnderUser} from '../../queries/queries'
+import {getClassesUnderUser, getClassesUnderUserWithId} from '../../queries/queries'
 import type { NextPage } from 'next'
 import {useState, useEffect} from 'react'
 import { gql, useQuery, useMutation } from '@apollo/client';
@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 const uid = new ShortUniqueId();
 
 interface Props {
-  classes: any,
+  _classes: any,
   userId: String,
 }
 
@@ -37,23 +37,48 @@ export async function getServerSideProps(ctx:any) {
     })
     return {
         props: {
-            classes: data.currentUser.classes,
+            _classes: data.currentUser.classes,
             userId: userId
         }
     }
 }
 
 
-const Classes: NextPage <Props> = ({classes, userId}) => {
+const Classes: NextPage <Props> = ({_classes, userId}) => {
+  const [classes, setClasses] = useState(_classes)
   const [className, setClassName] = useState('')
   const [passcode, setPasscode] = useState('')
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-  const [addClass, { data, loading, error }] = useMutation(AddNewClass);
+  const [addClass, { loading, error }] = useMutation(AddNewClass);
+  const {data} = useQuery(getClassesUnderUserWithId, {
+    variables: {
+      id: userId
+    }
+  })
   const router = useRouter()
 
+  async function refetch(){
+    await client.refetchQueries({
+      include: [getClassesUnderUserWithId],
+    });
+  }
+
+  useEffect(() => {
+    if(data){
+      const _data = data.user.classes
+      setClasses(_data)
+      router.replace(router.asPath)
+      setClassName('')
+      setPasscode('')
+      setStartTime('')
+      setEndTime('')
+    }
+  }, [data])
+
   // Function to add new class
-  const handleSubmit = ()=>{
+  const handleSubmit = (e:any)=>{
+    e.preventDefault()
     const variables =  { 
       name: className,
       passcode: passcode,
@@ -63,8 +88,7 @@ const Classes: NextPage <Props> = ({classes, userId}) => {
      }
     addClass({variables})
     if(!loading && !error){
-      router.replace(router.asPath)
-      console.log(classes)
+      refetch()
     }
   }
 
@@ -89,25 +113,25 @@ const Classes: NextPage <Props> = ({classes, userId}) => {
           <form action="" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="className">Class Name</label>
-              <input type="text" id="className" name="className" className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2' onChange={(e)=>{
+              <input type="text" id="className" name="className" value={className} className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2' onChange={(e)=>{
                 setClassName(e.target.value)
               }}/>
             </div>
             <div className='mt-5'>
               <label htmlFor="classPasscode">Class Passcode</label>
-              <input type="text" id="classPasscode" name="classPasscode" className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2' onChange={(e)=>{
+              <input type="text" id="classPasscode" name="classPasscode" value={passcode} className='border-b-2 border-gray-300 focus:outline-none px-2 py-1 w-full mt-2' onChange={(e)=>{
                 setPasscode(e.target.value)
               }}/>
             </div>
             <div className='mt-5'>
               <label htmlFor="appt">Start:</label>
-              <input className='ml-5' type="time" id="startTime" name="startTime" onChange={(e)=>{
+              <input className='ml-5' type="time" id="startTime" value={startTime} name="startTime" onChange={(e)=>{
                 setStartTime(e.target.value)
               }}/>
             </div>
             <div className='mt-5'>
               <label htmlFor="appt">End:</label>
-              <input className='ml-5' type="time" id="endTime" name="endTime" onChange={(e)=>{
+              <input className='ml-5' type="time" id="endTime" name="endTime" value={endTime} onChange={(e)=>{
                 setEndTime(e.target.value)
               }} />
             </div>
