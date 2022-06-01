@@ -77,14 +77,15 @@ To build the app on your machine follow the instuctions:
 ## Dashboard
 
 **Usage**
-1) Cd into web-dashboard/web-backend and start the dev server at port 4000.
+1) Cd into web-dashboard/web-backend and make .env file. Make a key 'JWT_SECRET' in env and assign it to any random string. 
+2) Start the dev server at port 4000.
 	
 
     `cd web-dashboard/web-backend`
     `nodemon app.js`
 
-2) Cd into web-dashboard/web-frontend to start nextJS dashboard at port 3001.
-3) Login or Register a user and enter the dashboard.
+3) Cd into web-dashboard/web-frontend to start nextJS dashboard at port 3001.
+4) Login or Register a user and enter the dashboard.
 
 **Features**
 1) You can login or register a new user.
