@@ -21,7 +21,7 @@ This Project has two main parts. First there is a desktop app from which target 
 6) Class code and passcode are now added for a particular class in the app.
 7) Student and class data for that particular class is now fetched by the app.
 8) Attendance data for that particular app is also cached by the app.
-9) When a student of that particular class comes infant of the camera in correct timing allowed by the class, his/her attendance is marked and is saved in the database.
+9) When a student of that particular class comes infront of the camera in correct timing allowed by the class, his/her attendance is marked and is saved in the database.
 10) User/ Admin can now see the attendance data in the dashboard. He can either  filter attendance for a student in a particular class Or he can see attendance data of a particular class on a particular day.
 
 Note: 1) If a user adds a class with previously used name and passcode and selects another timing then the timing of previously added class will be changed.
