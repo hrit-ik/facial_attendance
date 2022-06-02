@@ -28,9 +28,9 @@ Note: 1) If a user adds a class with previously used name and passcode and selec
 2) If the use adds a student again with same roll number and selects another class then the student will be added in that class as well. (A student can be in multiple classes at a time).
 
 **DB Setup**
+
 You Should Have MongoDB installed localy to run this project.
 [Instructions](https://www.mongodb.com/docs/manual/administration/install-community/)
-You can use [Robo3T](https://robomongo.org/) to import the demo db collection from [here](https://drive.google.com/drive/folders/15WTMVVQRNg8OaDjZQsl4P5e9MGJSLNNG?usp=sharing)
 Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/web-backend/app.js and web-dashboard/web-backend/python-server/main.py. You can change the connection on these code-blocks to connect to mongo Atlas or any other local collection.
 
 **Intalling Dependencies**
@@ -57,16 +57,16 @@ Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/w
 
 
 1) Make sure you have redis installed and running on your system.
-[Instructions](https://redis.io/docs/getting-started/) 
+[Instructions](https://redis.io/docs/getting-started/) [For windows you have to use wsl to install linux]
 2) Cd into the app/app-backend folder and start the server at port 5050.
 
     `cd app/app-backend`
     `python3 main.py`
-3) You can directly start the macOS [Build](https://github.com/hrit-ik/facial_attendance/tree/main/app/app-frontend/macos_build/app-frontend.app/Contents/MacOS) or can start the react app from app/app-frontend.
+3) You can directly start the macOS [Build](https://github.com/hrit-ik/facial_attendance/tree/main/app/app-frontend/macos_build/app-frontend.app/Contents/MacOS), Windows [Build](https://github.com/hrit-ik/facial_attendance/tree/main/app/app-frontend/windows_build) or can start the react app from app/app-frontend.
 
     `npm start`
     
- 4) Enter Class Code and Passcode for any class and enter the app.
+ 4) Enter Class Code and Passcode for any class and press submit.
  5) Now if the app detects face of any student present in the class whose attendance has not been marked previously will be marked. He should be in time foor the class, otherwise attendance will not be marked.
 
 ** Make sure to check timing for the class in a the dashboard before marking the attendance.
