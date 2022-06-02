@@ -1,9 +1,31 @@
 
+
 # facial_attendance
 
-This is an attendance management system making use Face Recognition.
+This is a prototype for facial attendance system made with dlib and pythons face_recognition library.
 
 This Project has two main parts. First there is a desktop app from which target can submit their attendance. Then there is a web dashboard from which admin can manage classes, students, and can see all the attendance data.
+
+**FLOW**
+
+1) A user/organisation registers in the dashboard.
+2) Now they can add classes under them.
+	i) They specify name and timing of the class.
+	ii) They set a passcode for the class.
+3) They will now get a class code which will be used along with the passcode they set... for authenticating in the app.
+4) User can now add a student.
+	i) They specify name and roll number of student.
+	ii) They upload the image of student by drag and drop... or they can directly paste a link after uploading on [image bb](https://imgbb.com).
+	iii) They now select a class under which they want to add the student.
+5) The python server from app-backend folder is now turned on and the app is now opened.
+6) Class code and passcode are now added for a particular class in the app.
+7) Student and class data for that particular class is now fetched by the app.
+8) Attendance data for that particular app is also cached by the app.
+9) When a student of that particular class comes infant of the camera in correct timing allowed by the class, his/her attendance is marked and is saved in the database.
+10) User/ Admin can now see the attendance data in the dashboard. He can either  filter attendance for a student in a particular class Or he can see attendance data of a particular class on a particular day.
+
+Note: 1) If a user adds a class with previously used name and passcode and selects another timing then the timing of previously added class will be changed.
+2) If the use adds a student again with same roll number and selects another class then the student will be added in that class as well. (A student can be in multiple classes at a time).
 
 **DB Setup**
 You Should Have MongoDB installed localy to run this project.
