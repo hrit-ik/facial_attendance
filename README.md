@@ -122,7 +122,13 @@ To build the app on your machine follow the instuctions:
 7) We can see attendance data with student of a class, or of a class on a specific date. 
 
 **Bugs**
-1) As the classes and students are server side rendered we have to refresh the dev server to see the result after adding classes or students.
+1) We have to reresh 2 times after logging in when the server first starts.
+
+**What can be improved**
+1) We could add models to differentiate between real faces and photos either by using Texture analysis or Optical flow algorithms.
+2) We could try to compile app-backend python server to make an executable so that it can be used as a sidecar with the app.
+3) We could add feature to add student in bulk for a class using json files.
+4) We can add graphs for easy visualization of large amount of attendance data.
 
 ## Images
 
