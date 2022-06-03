@@ -124,6 +124,8 @@ To build the app on your machine follow the instuctions:
 **Bugs**
 1) We have to reresh 2 times after logging in when the server first starts.
 
+<br>
+
 **What can be improved**
 1) We could add models to differentiate between real faces and photos either by using Texture analysis or Optical flow algorithms.
 2) We could try to compile app-backend python server to make an executable so that it can be used as a sidecar with the app.
