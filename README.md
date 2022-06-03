@@ -1,10 +1,23 @@
 
 
+
 # facial_attendance
 
 This is a prototype for facial attendance system made with dlib and pythons face_recognition library.
 
 This Project has two main parts. First there is a desktop app from which target can submit their attendance. Then there is a web dashboard from which admin can manage classes, students, and can see all the attendance data.
+
+**Main Features**
+1) The desktop app uses very less system memory (around 25MB on Mac) and has a footprint of only 9-10 MB.
+2) Server side rendering in web-dashboard makes navigation through it instant.
+3) Redis caching of attendance data makes attendance verification instant.
+4) Students can be in many classes at once.
+5) Attendance data can be filtered in two main ways.
+6) Api is made through GraphQL so only the data needed is fetched.
+7) Classes have a timing system.
+8) Only faceEncoding and name for students is fetched by the app, not the whole image. So loading time for app is very quick.
+9) JWT is used for authentication.
+10) Timing for classes can be updated.
 
 **FLOW**
 
@@ -124,13 +137,16 @@ To build the app on your machine follow the instuctions:
 **Bugs**
 1) We have to reresh 2 times after logging in when the server first starts.
 
-<br>
+<hr>
 
 **What can be improved**
 1) We could add models to differentiate between real faces and photos either by using Texture analysis or Optical flow algorithms.
 2) We could try to compile app-backend python server to make an executable so that it can be used as a sidecar with the app.
 3) We could add feature to add student in bulk for a class using json files.
 4) We can add graphs for easy visualization of large amount of attendance data.
+5) Make docker files for easy setup of the project.
+
+<hr>
 
 ## Images
 
@@ -143,3 +159,14 @@ To build the app on your machine follow the instuctions:
 
 ![enter image description here](https://i.ibb.co/Lhj6bFZ/Screenshot-2022-05-30-at-1-55-49-AM.png)
 
+**App**
+![enter image description here](https://i.ibb.co/5kWzknt/Screenshot-2022-06-03-at-6-50-09-PM.png)
+
+**Dashboard**
+
+![enter image description here](https://i.ibb.co/ZdrBhcz/Screenshot-2022-06-03-at-7-00-27-PM.png)
+
+
+## DEMO
+
+[LINK](https://drive.google.com/file/d/1JsgdE1TOz8gawWhL6EOLVaKZxTdfTb70/view?usp=sharing)
