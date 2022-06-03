@@ -51,6 +51,8 @@ Mongo is connected at three places. At app/app-backend/db-setup, web-dashboard/w
 	iii) Install dependencies: 
     `pip install -r ./requirements.txt`
 
+** Make sure you have installed cmake. It will help compile dlib.
+
 ## APP
 
 **Usage**
