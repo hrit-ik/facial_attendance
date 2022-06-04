@@ -166,6 +166,8 @@ To build the app on your machine follow the instuctions:
 
 ![enter image description here](https://i.ibb.co/ZdrBhcz/Screenshot-2022-06-03-at-7-00-27-PM.png)
 
+![enter image description here](https://i.ibb.co/dLfr7PX/Screenshot-2022-06-04-at-11-30-54-PM.png)
+
 
 ## DEMO
 
