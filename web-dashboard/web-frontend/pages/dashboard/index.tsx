@@ -21,10 +21,12 @@ export async function getServerSideProps(ctx:any) {
     const {userId} = cookies(ctx)
     console.log(ctx.req.cookies['jwt'])
     if(!jwt){
-        ctx.res.writeHead(302, {
-            Location: '/auth/login'
-        })
-        ctx.res.end()
+        return{
+            redirect: {
+                permanent: false,
+                destination: "/auth/login"
+              }
+        }
     }
     const {data} = await client.query({
         query: getCurrentUser, //Query to get current user
