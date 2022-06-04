@@ -120,7 +120,7 @@ To build the app on your machine follow the instuctions:
 	
 
     `cd web-dashboard/web-backend`
-    `nodemon app.js`
+    `node app.js`
 
 4) Cd into web-dashboard/web-frontend to start nextJS dashboard at port 3001 with `npm run dev`.
 5) Login or Register a user and enter the dashboard.
