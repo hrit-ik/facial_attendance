@@ -135,9 +135,6 @@ To build the app on your machine follow the instuctions:
 6) We can delete students.
 7) We can see attendance data with student of a class, or of a class on a specific date. 
 
-**Bugs**
-1) We have to reresh 2 times after logging in when the server first starts.
-
 <hr>
 
 **What can be improved**
